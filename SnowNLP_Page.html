@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labels Based on SnowNLP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            position: relative;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #allBtn {
+            position: absolute;
+            top: 10px; /* 调整按钮的位置 */
+            left: 10px;
+            border: 2px solid #007bff; /* 添加边框 */
+            border-radius: 4px;
+            padding: 8px 20px; /* 减小按钮的内边距 */
+            background-color: #fff; /* 白色背景 */
+            color: #007bff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.5s ease, color 0.5s ease; /* 添加对背景和文字颜色的过渡效果 */
+        }
+
+        #allBtn:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #allBtn:active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            color: #007bff;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 50px; /* 添加上方间距以让评论列表下移 */
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>基于SnowNLP的微博评论情感分析</h1>
+
+    <div class="container">
+        <div class="button-container">
+            <button onclick="showStronglyAgainst()" id="stronglyAgainstBtn">0-0.2</button>
+            <button onclick="showAgainst()" id="againstBtn">0.2-0.4</button>
+            <button onclick="showNeutral()" id="neutralBtn">0.4-0.6</button>
+            <button onclick="showSatisfied()" id="satisfiedBtn">0.6-0.8</button>
+            <button onclick="showStronglySupport()" id="stronglySupportBtn">0.8-1.0</button>
+        </div>
+
+        <ul id="comment-list">
+            <!-- 评论内容将通过 JavaScript 动态添加 -->
+        </ul>
+    </div>
+
+    <!-- “全部”按钮放在与其他按钮平齐的高度 -->
+    <button onclick="showAll()" id="allBtn" class="active">全部</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script>
+        var comments = [];
+        var allComments = []; // 存储所有评论
+
+        function fetchComments() {
+            fetch('files/NoHeader.xlsx')
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                    var data = new Uint8Array(buffer);
+                    var workbook = XLSX.read(data, {type: 'array'});
+                    var sheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[sheetName];
+                    var range = XLSX.utils.decode_range(worksheet['!ref']);
+                    for (var rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                        var cell = worksheet[XLSX.utils.encode_cell({r: rowNum, c: 0})];
+                        var comment = cell ? cell.v : '';
+                        var sentiment = worksheet[XLSX.utils.encode_cell({r: rowNum, c: 1})];
+                        var score = sentiment ? sentiment.v : 0;
+                        allComments.push({comment: comment, score: score});
+                    }
+                    showAll(); // 显示所有评论
+                })
+                .catch(error => console.error('文件读取失败', error));
+        }
+
+        function showAll() {
+            setActiveButton(document.getElementById('allBtn'));
+            displayComments(allComments);
+        }
+
+        function showStronglyAgainst() {
+            setActiveButton(document.getElementById('stronglyAgainstBtn'));
+            var stronglyAgainstComments = allComments.filter(function(comment) {
+                return comment.score >= 0 && comment.score < 0.2;
+            });
+            displayComments(stronglyAgainstComments);
+        }
+
+        function showAgainst() {
+            setActiveButton(document.getElementById('againstBtn'));
+            var againstComments = allComments.filter(function(comment) {
+                return comment.score >= 0.2 && comment.score < 0.4;
+            });
+            displayComments(againstComments);
+        }
+
+        function showNeutral() {
+            setActiveButton(document.getElementById('neutralBtn'));
+            var neutralComments = allComments.filter(function(comment) {
+                return comment.score >= 0.4 && comment.score < 0.6;
+            });
+            displayComments(neutralComments);
+        }
+
+        function showSatisfied() {
+            setActiveButton(document.getElementById('satisfiedBtn'));
+            var satisfiedComments = allComments.filter(function(comment) {
+                return comment.score >= 0.6 && comment.score < 0.8;
+            });
+            displayComments(satisfiedComments);
+        }
+
+        function showStronglySupport() {
+            setActiveButton(document.getElementById('stronglySupportBtn'));
+            var stronglySupportComments = allComments.filter(function(comment) {
+                return comment.score >= 0.8 && comment.score <= 1;
+            });
+            displayComments(stronglySupportComments);
+        }
+
+        function setActiveButton(btn) {
+            var buttons = document.querySelectorAll('.button-container button');
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+            btn.classList.add('active');
+        }
+
+        function displayComments(commentArray) {
+            var commentList = document.getElementById('comment-list');
+            commentList.innerHTML = ''; // 清空之前的评论内容
+            commentArray.forEach(function(comment) {
+                var listItem = document.createElement('li');
+                listItem.textContent = comment.comment;
+                commentList.appendChild(listItem);
+            });
+        }
+
+        fetchComments(); // 自动获取评论
+
+    </script>
+</body>
+</html>
