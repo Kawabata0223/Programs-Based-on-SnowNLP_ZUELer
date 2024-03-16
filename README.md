@@ -38,7 +38,7 @@ os
 
 ### 1. 查看目标微博的 id
 
-![[278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png|675]]
+![[[278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png](https://github.com/Kawabata0223/test/blob/master/pic/278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png)|675]]
 
 > 在 examples 文件夹中有各示例帖子的 id
 
