@@ -38,16 +38,16 @@ os
 
 ### 1. 查看目标微博的 id
 
-![[[278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png](https://github.com/Kawabata0223/test/blob/master/pic/278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png)|675]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/278919608-89dcbb20-5c15-4e84-9e72-520babbaf057.png)
 
 > 在 examples 文件夹中有各示例帖子的 id
 
-![[Pasted image 20240315130233.png|625]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240315130233.png)
 
 
 ### 2. 将 Crawl_SnowNLP.py 中79行的相应位置改为目标微博的 id
 
-![[Pasted image 20240315132709.png|575]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240315132709.png)
 
 ### 3. 运行 Startup_SnowNLP.py
 
@@ -59,18 +59,21 @@ os
 
 ### 5. 选择 pycharm 打开 SnowNLP_Page.html，在 pycharm 中用浏览器打开，生成标签化评论区（直接点开将无法正常载入评论）
 
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240315124656.png)
 
-![[Pasted image 20240315124656.png|700]]
 
-![[Pasted image 20240314213154.png|675]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240314213154.png)
 
-![[Pasted image 20240314212359.png|575]]
+
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240314212359.png)
+
 
 
 
 ## 五、程序说明
 
-![[程序架构1.png|625]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/%E7%A8%8B%E5%BA%8F%E6%9E%B6%E6%9E%841.png)
+
 
 
 Startup_SnowNLP.py
@@ -115,7 +118,8 @@ SnowNLP_Page.html
 
 在 examples 文件夹中有各事件的数据结果，分析报告
 
-![[Pasted image 20240315123520.png|650]]
+![image](https://github.com/Kawabata0223/test/blob/master/pic/Pasted%20image%2020240315123520.png)
+
 
 
 
