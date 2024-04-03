@@ -1,14 +1,32 @@
 ### 您好！下面是此项目文件的相关信息：
 
 ## 4月3日紧急维护：
-由于微博的变动，原爬虫无法正常工作，现已将爬虫程序更新为可用版本。
+由于微博的变动，原爬虫无法正常工作，现已将爬虫程序更新为可用版本。下面是具体的变动和优化内容：
+
+### 1. 新爬虫如何爬取目标微博
+
+新爬虫已无需繁琐地查看帖子id，只需在Crawl_SnowNLP.py第89行对应位置修改为目标微博的网址即可
+
+![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E6%AD%A3%E7%A1%AE%E7%BD%91%E7%AB%99.png)
+
+![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80.png)
+
+> 注1：查看目标微博网址的方法
+
+> 点击目标帖子的时间即可进入该帖，进入后复制网址即可
+![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E8%BF%9B%E5%85%A5%E5%B8%96%E5%AD%90.png)
+
+> 注2：无效网址
+
+> 从首页进入的帖子网址是无法使用的，如下图所示。通过热搜榜或搜索进入的帖子网址则可正常使用
+
+![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E9%A6%96%E9%A1%B5.png)
 
 
+### 2. 修改爬取评论数量的方法
+对于成千上万条评论的帖子，爬取将花费相当长的时间，可以通过修改Crawl_SnowNLP.py第83行的对应数字来控制爬取评论的数量
 
-
-
-
-
+![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E9%A1%B5%E6%95%B0%E9%99%90%E5%88%B6.png)
 
 -------
 
