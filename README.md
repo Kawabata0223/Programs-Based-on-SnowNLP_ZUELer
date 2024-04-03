@@ -19,7 +19,6 @@
 > 注2：无效网址
 
 > 从首页进入的帖子网址是无法使用的，如下图所示。通过热搜榜或搜索进入的帖子网址则可正常使用
-
 ![image](https://github.com/Kawabata0223/Programs-Based-on-SnowNLP_ZUELer/blob/master/pic/%E9%A6%96%E9%A1%B5.png)
 
 
